@@ -3,5 +3,11 @@
 <% end %>
 
 <% @items.each do |item| %>
-  <p><%= item.title %> | <%= number_to_currency(item.price) %> | <%= button_to 'Add to Cart', line_items_path(item_id: item) %></p>
+  <% if item.inventory > 0 %>
+    <p><%= item.title %> | <%= number_to_currency(item.price/100.0) %> | <%= button_to 'Add to Cart', line_items_path(item_id: item) %></p>
+  <% end %>
 <% end %>
+
+<% if @current_cart != nil %>
+  <%=link_to "Cart", cart_path(@current_cart)%>
+<%end%>
